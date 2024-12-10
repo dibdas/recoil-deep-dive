@@ -1,5 +1,5 @@
-import { atom, selector } from "recoil";
-
+import { atom, atomFamily, selector } from "recoil";
+import { TODOS } from "./todos";
 export const newtworkAtom = atom({
   key: "newtworkAtom",
   default: 76,
@@ -75,5 +75,25 @@ export const totalNotificationSelector = selector({
     const notificationCount = get(notificationAtom);
 
     return notificationCount + jobListCount + networkCount + messageCount;
+  },
+});
+
+const tododAtom = atom({
+  key: "todoAtom",
+  default: {
+    id: 1,
+    title: "go to gym",
+    description: "hit the gym from 7-9 days",
+  },
+});
+
+// it just a way to create multiple atoms
+export const todosAtomfamily = atomFamily({
+  key: "todosfamily",
+  //it tells which should be rendered
+  //   if id =1 below logic will run for id =1
+  //   if id =2 , below logic will run for id =2
+  default: (id) => {
+    return TODOS.find((X) => X.id === id);
   },
 });

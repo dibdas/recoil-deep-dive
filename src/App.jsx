@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { RecoilRoot, useRecoilValue } from "recoil";
 import reactLogo from "./assets/react.svg";
+import Atomfamily from "./Atomfamily";
 import {
   jobsAtom,
   messageAtom,
@@ -13,6 +14,7 @@ function App() {
   return (
     <RecoilRoot>
       <MainApp />
+      <Atomfamily />
     </RecoilRoot>
   );
 }
