@@ -78,14 +78,14 @@ export const totalNotificationSelector = selector({
   },
 });
 
-const tododAtom = atom({
-  key: "todoAtom",
-  default: {
-    id: 1,
-    title: "go to gym",
-    description: "hit the gym from 7-9 days",
-  },
-});
+// const tododAtom = atom({
+//   key: "todoAtom",
+//   default: {
+//     id: 1,
+//     title: "go to gym",
+//     description: "hit the gym from 7-9 days",
+//   },
+// });
 
 // it just a way to create multiple atoms
 export const todosAtomfamily = atomFamily({
@@ -94,6 +94,18 @@ export const todosAtomfamily = atomFamily({
   //   if id =1 below logic will run for id =1
   //   if id =2 , below logic will run for id =2
   default: (id) => {
-    return TODOS.find((X) => X.id === id);
+    let foundTodo = null;
+
+    for (let i = 0; i < TODOS.length; i++) {
+      if (TODOS[i].id === id) {
+        foundTodo = TODOS[i];
+      }
+    }
+    return foundTodo;
   },
+
+  // same as above
+  // default: (id) => {
+  //   return TODOS.find((X) => X.id === id);
+  // },
 });

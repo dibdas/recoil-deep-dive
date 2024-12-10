@@ -1,5 +1,11 @@
-import React from "react";
-import { atom, RecoilRoot, useRecoilValue } from "recoil";
+import React, { useEffect } from "react";
+import {
+  atom,
+  RecoilRoot,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 import { todosAtomfamily } from "./atoms";
 
 // const tododAtom = atom({
@@ -13,12 +19,30 @@ import { todosAtomfamily } from "./atoms";
 function Atomfamily() {
   return (
     <RecoilRoot>
+      <UpdateComponent />
       <Todo id={1} />
       <Todo id={1} />
+      <Todo id={2} />
       <Todo id={1} />
+      <Todo id={2} />
       <Todo id={3} />
+      <Todo id={2} />
     </RecoilRoot>
   );
+}
+
+function UpdateComponent() {
+  const updateTodo = useSetRecoilState(todosAtomfamily(2));
+
+  useEffect(() => {
+    setTimeout(() => {
+      updateTodo({
+        id: "2",
+        title: "new todo updated",
+        description: " new todo description",
+      });
+    }, 5000);
+  }, []);
 }
 
 function Todo({ id }) {
