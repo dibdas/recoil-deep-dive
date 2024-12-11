@@ -15,6 +15,8 @@ function App() {
     <RecoilRoot>
       <MainApp />
       <Atomfamily />
+
+      <Selectorfamily />
     </RecoilRoot>
   );
 }
