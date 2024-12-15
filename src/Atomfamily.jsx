@@ -3,7 +3,9 @@ import {
   atom,
   RecoilRoot,
   useRecoilState,
+  useRecoilStateLoadable,
   useRecoilValue,
+  useRecoilValueLoadable,
   useSetRecoilState,
 } from "recoil";
 import { todosAtomfamily } from "./atoms";
@@ -46,7 +48,34 @@ function UpdateComponent() {
 }
 
 function Todo({ id }) {
-  const currentTodo = useRecoilValue(todosAtomfamily(id));
+  // const currentTodo = useRecoilValue(todosAtomfamily(id));
+  // const [currentTodo,setCurrentTodo]= useRecoilValue(todosAtomfamily(id))
+  // const [currentTodo, setCurrentTodo] = useRecoilStateLoadable(
+  //   todosAtomfamily(id)
+  // );
+  // if you just need only the values
+  const currentTodo = useRecoilValueLoadable(todosAtomfamily(id));
+  //  currenttodo from the above {contents,state}
+  console.log(currentTodo.state);
+  // putting a checking while its loading or taking the time to fetch the data
+  if (currentTodo.state.loading === "loading") {
+    return <div>loading </div>;
+  } else if (currentTodo.state.loading === "hasValue") {
+    return (
+      <>
+        <h3>{currentTodo.title}</h3>
+        <h3>{currentTodo.description}</h3>
+      </>
+    );
+  } else if (currentTodo.state == hasError) {
+    return (
+      <div>
+        {" "}
+        <h3>{currentTodo.title}</h3>
+        <h3>{currentTodo.description}</h3>
+      </div>
+    );
+  }
   return (
     <>
       <h3>{currentTodo.title}</h3>
